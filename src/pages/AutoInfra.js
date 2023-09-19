@@ -1,258 +1,105 @@
-import {Select, MenuItem, FormControl, InputLabel, Typography, TextField} from "@mui/material";
+import { Select, MenuItem, FormControl, InputLabel, Typography, TextField, Container, Grid } from "@mui/material";
 import React, { useEffect, useState, MouseEvent } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
-import Tooltip from '@mui/material/Tooltip';
-import Popover from '@mui/material/Popover';
-import { styled } from '@mui/system';
-import SendIcon from '@mui/icons-material/Send';
-import NextPlanIcon from '@mui/icons-material/NextPlan';
-import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
-import PlayCircleFilledTwoToneIcon from '@mui/icons-material/PlayCircleFilledTwoTone';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import PlayCircleOutlineTwoToneIcon from '@mui/icons-material/PlayCircleOutlineTwoTone';
-import StopCircleIcon from '@mui/icons-material/StopCircle';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+
+
 
 import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 
 
 
-import { Margin } from "@mui/icons-material";
+
 
 import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
 
-
-const StyledPopover = styled(Popover)({
-    padding: '100px',
-    minWidth: '350px',
-    minHeight:'150px',
-  });
-
-  const steps = [
-    'Start',
-    'Running',
-    'Completed',
-  ];
-  
-  
-  
+import ButtonDropdown from "../sections/@dashboard/autoinfra/ReusableDropdowncomponent";
+import Home from "../sections/@dashboard/autoinfra/Home";
+import OrgAdd from "../sections/@dashboard/autoinfra/Organizations/OrgAdd";
+import OrgView from "../sections/@dashboard/autoinfra/Organizations/Orgview";
+import OrgEdit from "../sections/@dashboard/autoinfra/Organizations/OrgEdit";
+import InventoryHome from "../sections/@dashboard/autoinfra/Inventory/InventoryHome";
+import ProjectsHome from "../sections/@dashboard/autoinfra/Projects/ProjectsHome";
+import NewJobHome from "../sections/@dashboard/autoinfra/NewJob/NewJobHome";
 
 const AutoInfra = () => {
 
-    
-
-    const ComponentAdivStyle = {
-        
-        height: 'auto',
-        padding: '20px 0px 20px 20px',
-        backgroundColor: '#FFFFFF',
-        boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.3)',
-        borderRadius: '10px',
-        width: 'auto',
-        marginRight:'50px',
-        marginLeft:'20px',
-        
-      };
-
-      const ComponentCdivStyle = {
-        width: 'auto',
-        height: 'auto',
-        paddingBottom: '30px',
-        backgroundColor: '#FFFFFF',
-        boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.3)',
-        borderRadius: '10px',
-        marginRight:'50px',
-        marginLeft:'20px',
-        // 
-        // justifyContent:'center'
-      };
-
-      const selectStyle = {
-        minWidth: '350px', // Adjust the width as needed
-        height: '60px'
-      };
-
-      const selectStyle1 = {
-        minWidth: '350px', // Adjust the width as needed
-        height: '60px'
-      };
-
-      const stopButtonStyle = {
-        width: '100px',
-        textAlign: 'center',
-       
-      }
-
-      const CloseButtonCSytle = {
-        
-        // right:'70px',        
-      }
 
 
-    
+  const [selectedComponent, setSelectedComponent] = useState('Home');
 
-    const optionsArray = [
-        { value: 'option1', label: 'Ara Petroleum' },
-        { value: 'option2', label: 'Romana' },
-      ];
-    
-    
-    const [selectedOption, setSelectedOption] = useState('');
-    
-    const handleOptionChange = (event) => {
-      setSelectedOption(event.target.value);
-    };
+  const handleButtonClick = (component) => {
+    setSelectedComponent(component);
 
-    const [ComponentBValue,setComponentBValue] = useState(false);
-    const [ComponentCValue,setComponentCValue] = useState(false);
+    console.log(component)
+  };
 
-    const handleComponentBValue = (event) => {
-        setComponentBValue(true);
-    } 
 
-    const handleComponentCValue = (event) => {
-        setComponentCValue(true);
-    } 
 
-    const handleClose=()=>{
-        setComponentBValue(false);
-    }
+  const [selectedItem, setSelectedItem] = useState(null);
 
-    function ComponentC() {
-        return (
-            <div style={ComponentCdivStyle}>
-              <IconButton style={CloseButtonCSytle}>
-                      <CloseIcon />
-              </IconButton>
-            <Stack spacing={5} direction="column" >
-            
-            <Stepper activeStep={1} alternativeLabel >
-              {steps.map((label) => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-            
-            <Stack spacing={4} direction="column" alignItems="center" >
-            <div style={stopButtonStyle} >
-            <Button variant="contained" size="large"  endIcon={<StopCircleIcon/>} style={{fontSize:
-            '16px'}}>Stop</Button>
-            </div>
-          </Stack>
-          </Stack>
-          
-          </div>
-        );
-      }
 
-      function ComponentB() {
-        return <div style={ComponentAdivStyle}>
-            <Stack spacing={4} direction="row">
-            <TextField id="outlined-basic" label="Project Name" variant="outlined" size="medium" style={{minWidth:'350px'}}/>
-
-            <FormControl variant="outlined">
-                        <InputLabel>Select Program</InputLabel>
-                        <Select
-                        value={selectedOption}
-                        onChange={handleOptionChange}
-                        label="Select an option"
-                        style={selectStyle}
-                        >
-                        {optionsArray.map(option => {
-                            return (
-                                <MenuItem key={option.value} value={option.value}>
-                                {option.label}
-                                </MenuItem>
-                            );
-                        })}
-                        </Select>
-                    </FormControl>
-                    <Button variant="contained" style={{fontSize: '18px', paddingLeft: '30px', paddingRight: '30px', marginRight:'20px'}} endIcon={<PlayArrowIcon/>}>Start</Button>
-                    <Button variant="contained" onClick={handleComponentCValue} style={{fontSize: '18px', paddingLeft: '30px', paddingRight: '30px'}}>Automate</Button>
-                    <IconButton >
-                      <CloseIcon />
-                    </IconButton>
-                    
-                    
-                   
-            </Stack>
-            
-
-        </div>;
-      }
-      function NullComponent() {
-        // Returning null will render nothing
-        return null;
-      }
-            
-
-    return (
-        <>
-        <Stack spacing={4} direction="column">
-        <div style={ComponentAdivStyle}>
-            <Stack spacing={4} direction="row">
-                
-                    <FormControl variant="outlined">
-                        <InputLabel>Select Organization</InputLabel>
-                        <Select
-                        value={selectedOption}
-                        onChange={handleOptionChange}
-                        label="Select an option"
-                        style={selectStyle}
-                        >
-                        {optionsArray.map(option => {
-                            return (
-                                <MenuItem key={option.value} value={option.value}>
-                                {option.label}
-                                </MenuItem>
-                            );
-                        })}
-                        </Select>
-                    </FormControl>
-                
-                
-                <FormControl variant="outlined">
-                        <InputLabel>Select System</InputLabel>
-                        <Select
-                        value={selectedOption}
-                        onChange={handleOptionChange}
-                        label="Select an option"
-                        style={selectStyle1}
-                        >
-                        {optionsArray.map(option => {
-                            return (
-                                <MenuItem key={option.value} value={option.value}>
-                                {option.label}
-                                </MenuItem>
-                            );
-                        })}
-                        </Select>
-                    </FormControl>
-                   
-                    <Button variant="contained" style={{fontSize: '18px'}} >Manage Organizations</Button>
-                    <Button variant="contained" style={{fontSize: '18px'}} endIcon={<ArrowForwardIosOutlinedIcon />} onClick={handleComponentBValue} >Next</Button>
-                    
-                
-            </Stack>
-        </div>
-        <div>
-        {ComponentBValue === true ? <ComponentB /> : <NullComponent />}
-      </div>
-
+  return (
+    <>
       <div>
-        {ComponentCValue === true ? <ComponentC /> : <NullComponent />}
-      </div>
+        <Container maxWidth="xl" >
+          <Box display="flex" justifyContent="space-between" alignItems="center" >
+            <IconButton onClick={() => handleButtonClick('Home')}>
+              <HomeRoundedIcon style={{ fontSize: 40 }} />
+            </IconButton>
 
-      </Stack>
-      </>
-    )
+            {/* <ButtonDropdown buttonLabel="Toggle Dropdown"  items={dropdownItems} onSelect={handleButtonClick}/>
+            {console.log('selected button',selectedComponent)} */}
+            <Stack spacing={2} direction="row" alignItems="center" >
+
+              {/* <ButtonDropdown buttonLabel="Organizations"  items={['View', 'Add', 'Edit']} onSelect={handleButtonClick}/> */}
+
+              <Button variant="text" size="large" style={{fontFamily:'Bebas Neue',color:'black'}} onClick={() => handleButtonClick('Organizations')}>Organizations</Button>
+              <Button variant="text" size="large" style={{fontFamily:'Bebas Neue', color:'black'}} onClick={() => handleButtonClick('InventoryHome')}>Inventory</Button>
+              <Button variant="text" size="large" style={{fontFamily:'Bebas Neue', color:'black'}} onClick={() => handleButtonClick('Projects')}>Projects</Button>
+              <Button variant="text" size="large" style={{fontFamily:'Bebas Neue', color:'black'}} onClick={() => handleButtonClick('New Job')}>New Job</Button>
+              <Button variant="text" size="large" style={{fontFamily:'Bebas Neue', color:'black'}} onClick={() => handleButtonClick('History')}>History</Button>
+              
+              <Button variant="text">
+              <AddTwoToneIcon fontSize="large"/>
+              </Button>
+
+              {/* <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Tabs  aria-label="basic tabs example">
+                  <Tab label="Organizations" onClick={() => handleButtonClick('Organizations')} />
+                  <Tab label="Inventory" onClick={() => handleButtonClick('InventoryHome')} />
+                  <Tab label="Projects" onClick={() => handleButtonClick('Projects')} />
+                </Tabs>
+              </Box> */}
+
+            </Stack>
+          </Box>
+        </Container>
+
+
+        <Container maxWidth="xl" style={{ boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.3)', height: '100%', borderRadius: '10px' }}>
+
+          {selectedComponent === 'Home' && <Home />}
+          {selectedComponent === 'Organizations/View' && <OrgView />}
+          {selectedComponent === 'Organizations/Add' && <OrgAdd />}
+          {selectedComponent === 'Organizations' && <OrgEdit />}
+          {selectedComponent === 'InventoryHome' && <InventoryHome />}
+          {selectedComponent === 'Projects' && <ProjectsHome />}
+          {selectedComponent === 'New Job' && <NewJobHome />}
+
+
+
+
+        </Container>
+
+
+      </div>
+    </>
+  );
 }
 
 export default AutoInfra;

@@ -8,18 +8,22 @@ import ThemeProvider from './theme';
 import { StyledChart } from './components/chart';
 import ScrollToTop from './components/scroll-to-top';
 
+import { StateContext } from './ContextAPI';
+
 // ----------------------------------------------------------------------
 
 export default function App() {
   return (
-    <HelmetProvider>
-      <BrowserRouter>
-        <ThemeProvider>
-          <ScrollToTop />
-          <StyledChart />
-          <Router />
-        </ThemeProvider>
-      </BrowserRouter>
-    </HelmetProvider>
+    <StateContext>
+      <HelmetProvider>
+        <BrowserRouter>
+          <ThemeProvider>
+            <ScrollToTop />
+            <StyledChart />
+            <Router />
+          </ThemeProvider>
+        </BrowserRouter>
+      </HelmetProvider>
+    </StateContext>
   );
 }

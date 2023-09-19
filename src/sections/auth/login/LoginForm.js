@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 // @mui
@@ -7,6 +7,9 @@ import { LoadingButton } from '@mui/lab';
 import MuiAlert from '@mui/material/Alert';
 // components
 import Iconify from '../../../components/iconify';
+
+import { NoteContext } from '../../../ContextAPI'
+
 
 // ----------------------------------------------------------------------
 
@@ -36,17 +39,21 @@ export default function LoginForm() {
     
   }
 
+  const { login } = useContext(NoteContext);
+
 
   const handleClick = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/api/login', {
+      const response = await axios.post('http://localhost:3001/api/users/login', {
         username,
         password,
       }).then((response)=>{
+        console.log(response.data)
         const { success, message, LogedInUser } = response.data;
         console.log(LogedInUser)
         if (success) {
           // Do something with the user data, such as storing it in a state or redirecting to another page
+          login(LogedInUser)
           navigate('/dashboard/app', { replace: true }, {state:LogedInUser});
           console.log('Logged in user:', LogedInUser.username);
         } else {
