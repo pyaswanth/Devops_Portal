@@ -33,6 +33,7 @@ const OrgAdd =()=>{
           const response = await axios.post('http://localhost:3001/api/dashboard-autoinfra/organizations/add', data).then((response)=>{
             const { success, message } = response.data;
             console.log(response)
+            console.log(response)
             handleResetClick()
             if (success) {
                 console.log(message)
