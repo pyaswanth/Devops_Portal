@@ -143,7 +143,7 @@ const NewJobHome = () => {
                 setJobResponse((response.data).replace(/(\*{7,})/g, '$1\n'))
 
                 console.log(response.data)
-                console.log(response.data)
+                
             })
         }
         catch (error) {
